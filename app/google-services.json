@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "49240757317",
+    "project_id": "androiddb-d2083",
+    "storage_bucket": "androiddb-d2083.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49240757317:android:6dc464b3cc03bad04f3f2c",
+        "android_client_info": {
+          "package_name": "com.insitutosanjuandelacruz.vetpet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49240757317-nioareeql215oiov6u81fr50gnpiru8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfdF4J8BOAv9_ujZmu_uabuesGWey7rEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49240757317-lh5tk6lb075mro47tmfr8sve71dj28vj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49240757317:android:590cda29f3eda6de4f3f2c",
+        "android_client_info": {
+          "package_name": "com.institutosanjuandelacruz.vetpet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49240757317-nioareeql215oiov6u81fr50gnpiru8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfdF4J8BOAv9_ujZmu_uabuesGWey7rEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49240757317-lh5tk6lb075mro47tmfr8sve71dj28vj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
