@@ -1,5 +1,8 @@
 package com.insitutosanjuandelacruz.vetpet.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Pet {
     private String name;
     private String species;
@@ -87,5 +90,17 @@ public class Pet {
 
     public void setPetImage(String petImage) {
         this.petImage = petImage;
+    }
+
+    // Método para guardar la mascota en Firebase
+    public void saveToFirebase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference petsRef = database.getReference("pets");
+
+        // Generar una clave única para la mascota
+        String petId = petsRef.push().getKey();
+
+        // Guardar los datos de la mascota en la base de datos
+        petsRef.child(petId).setValue(this);
     }
 }

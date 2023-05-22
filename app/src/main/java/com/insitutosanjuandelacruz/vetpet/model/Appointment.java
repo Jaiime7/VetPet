@@ -1,5 +1,8 @@
 package com.insitutosanjuandelacruz.vetpet.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Appointment {
     private String date;
     private String hour;
@@ -87,5 +90,17 @@ public class Appointment {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    // Método para guardar la cita en Firebase
+    public void saveToFirebase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference appointmentsRef = database.getReference("appointments");
+
+        // Generar una clave única para la cita
+        String appointmentId = appointmentsRef.push().getKey();
+
+        // Guardar los datos de la cita en la base de datos
+        appointmentsRef.child(appointmentId).setValue(this);
     }
 }

@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextTextEmailAddress);
         editTextPassword = findViewById(R.id.editTextTextPassword);
         textViewRegister = findViewById(R.id.textViewRegister);
-        // Subraya el text View
         textViewRegister.setPaintFlags(textViewRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
