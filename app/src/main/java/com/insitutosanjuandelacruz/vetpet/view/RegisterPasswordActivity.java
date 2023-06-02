@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.insitutosanjuandelacruz.vetpet.R;
 import com.insitutosanjuandelacruz.vetpet.controller.ValidateEmailPassword;
@@ -70,43 +72,50 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     }
 
     public void writeToDb(String email, String password) {
+
         // Encrypt method
         UUID uuid= UUID.randomUUID();
         String name = uuid.toString();
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = mAuth.getCurrentUser().getUid();
-                Map<String, Object> user = new HashMap<>();
-                user.put("id", id);
-                user.put("name", "Guest-" + name);
-                user.put("email", email);
-                user.put("password", password);
-                user.put("birthdate", new Date());
-                user.put("gender","");
-                user.put("userType","Client");
-                user.put("address","");
-                user.put("profileImage","");
-                firebaseFirestore.collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        finish();
-                        startActivity(new Intent(RegisterPasswordActivity.this, LoginActivity.class));
-                        Toast.makeText(RegisterPasswordActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
-                    }
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                FirebaseUser user = mAuth.getCurrentUser();
+                try {
+                    user.sendEmailVerification();
+                    Toast.makeText(RegisterPasswordActivity.this, "A verification email has been sent to the address:" + email, Toast.LENGTH_SHORT).show();
+                    String id = mAuth.getCurrentUser().getUid();
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("id", id);
+                    userMap.put("name", "Guest-" + name);
+                    userMap.put("email", email);
+                    userMap.put("birthdate", new Date());
+                    userMap.put("gender","");
+                    userMap.put("userType","Client");
+                    userMap.put("address","");
+                    userMap.put("profileImage","");
+                    firebaseFirestore.collection("user").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            finish();
+                            startActivity(new Intent(RegisterPasswordActivity.this, LoginActivity.class));
+                            Toast.makeText(RegisterPasswordActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                            mAuth.signOut();
+                        }
 
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterPasswordActivity.this, "Error al guardar", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterPasswordActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(RegisterPasswordActivity.this, "Error al guardar", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Manejo de errores
+                Exception exception = task.getException();
+                System.out.println("Error al crear la cuenta: " + exception.getMessage());
             }
         });
+
     }
 }
