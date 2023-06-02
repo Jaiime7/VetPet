@@ -101,16 +101,4 @@ public class User {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
-
-    // Método para guardar el usuario en Firebase
-    public void saveToFirebase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference usersRef = database.getReference("users");
-
-        // Generar una clave única para el usuario
-        String userId = usersRef.push().getKey();
-
-        // Guardar los datos del usuario en la base de datos
-        usersRef.child(userId).setValue(this);
-    }
 }

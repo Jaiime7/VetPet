@@ -1,72 +1,71 @@
 package com.insitutosanjuandelacruz.vetpet.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.view.Menu;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.insitutosanjuandelacruz.vetpet.R;
+import com.insitutosanjuandelacruz.vetpet.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button buttonLogin;
-    public EditText editTextEmail;
-    public EditText editTextPassword;
-    public TextView textViewRegister;
+    private AppBarConfiguration mAppBarConfiguration;
+    private ActivityMainBinding binding;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        buttonLogin = findViewById(R.id.buttonLogin);
-        editTextEmail = findViewById(R.id.editTextTextEmailAddress);
-        editTextPassword = findViewById(R.id.editTextTextPassword);
-        textViewRegister = findViewById(R.id.textViewRegister);
-        textViewRegister.setPaintFlags(textViewRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        textViewRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RegisterEmailActivity.class);
-                startActivity(intent);
-            }
-        });
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (editTextPassword.getText().length() == 0 || editTextEmail.getText().length() == 0) {
-                    if (editTextEmail.getText().length() == 0) {
-                        editTextEmail.setError("Enter email");
-                        editTextEmail.requestFocus();
-                    }
-                    if (editTextPassword.getText().length() == 0) {
-                        editTextPassword.setError("Enter password");
-                        editTextEmail.requestFocus();
-                    }
-                } else {
-                    String email = editTextEmail.getText().toString();
-                    String password = editTextPassword.getText().toString();
 
-                   /* User person = realm.where(PersonRegister.class)
-                            .equalTo("email", email)
-                            .equalTo("password", password)
-                            .findFirst();
-                    if (person != null) {
-                        Intent intent = new Intent(MainActivity.this, PetActivity.class);
-                        intent.putExtra("email", email);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
-                    }
-                    */
-                }
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+        setSupportActionBar(binding.appBarMain.toolbar);
+        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 }
