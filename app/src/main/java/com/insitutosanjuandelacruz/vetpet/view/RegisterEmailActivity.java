@@ -28,11 +28,11 @@ public class RegisterEmailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ValidateEmailPassword val = new ValidateEmailPassword();
                 if (editTextEmail.getText().length()!=0 && val.validateEmail(editTextEmail.getText().toString())){
-                    Intent intent = new Intent(RegisterEmailActivity.this, RegisterPasswordActivity.class);
+                    Intent intent = new Intent(RegisterEmailActivity.this, RegisterBirthdateActivity.class);
                     intent.putExtra("email",editTextEmail.getText().toString());
                     startActivity(intent);
                 } else {
-                    Toast.makeText(RegisterEmailActivity.this,"Put a valid email",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterEmailActivity.this,"Enter a valid email",Toast.LENGTH_SHORT).show();
                 }
             }
         });

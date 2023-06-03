@@ -14,18 +14,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.type.DateTime;
 import com.insitutosanjuandelacruz.vetpet.R;
 import com.insitutosanjuandelacruz.vetpet.controller.ValidateEmailPassword;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -46,6 +51,9 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String email = extras.getString("email");
+        int day = extras.getInt("day");
+        int month = extras.getInt("month");
+        int year = extras.getInt("year");
         editTextPassword1 = findViewById(R.id.editTextTextPassword1);
         editTextPassword2 = findViewById(R.id.editTextTextPassword2);
         imageButtonNext = findViewById(R.id.imageButtonNext2);
@@ -65,13 +73,15 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                     Toast.makeText(RegisterPasswordActivity.this, "The password must meet the following requirements", Toast.LENGTH_SHORT).show();
                 } else {
                     String password = editTextPassword1.getText().toString();
-                    writeToDb(email, password);
+                    Calendar calendar = new GregorianCalendar(year, month, day);
+                    Timestamp date = new Timestamp(calendar.getTime());
+                    writeToDb(email, password, date);
                 }
             }
         });
     }
 
-    public void writeToDb(String email, String password) {
+    public void writeToDb(String email, String password, Timestamp date) {
 
         // Encrypt method
         UUID uuid= UUID.randomUUID();
@@ -87,11 +97,11 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                     userMap.put("id", id);
                     userMap.put("name", "Guest-" + name);
                     userMap.put("email", email);
-                    userMap.put("birthdate", new Date());
+                    userMap.put("birthdate", date);
                     userMap.put("gender","");
                     userMap.put("userType","Client");
                     userMap.put("address","");
-                    userMap.put("profileImage","");
+                    userMap.put("profileImage","default_profile_image.jpg");
                     firebaseFirestore.collection("user").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -113,7 +123,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             } else {
                 // Manejo de errores
                 Exception exception = task.getException();
-                System.out.println("Error al crear la cuenta: " + exception.getMessage());
+                Toast.makeText(RegisterPasswordActivity.this, "Error al crear cuente" + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -30,5 +30,15 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="me">Me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="save_credentials">Save credentials</string>
+    <string name="re_enter_your_password">Re-enter your password</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="menu_me">Me</string>
+    <string name="my_pets">My Pets</string>
+    <string name="menu_history_medical">Medical History</string>
+    <string name="menu_pets">My pets</string>
+    <string name="menu_appointments">Appointments</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>

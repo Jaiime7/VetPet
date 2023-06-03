@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,11 +24,12 @@ import com.insitutosanjuandelacruz.vetpet.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public Button buttonLogin;
-    public EditText editTextEmail;
-    public EditText editTextPassword;
-    public TextView textViewRegister;
+    Button buttonLogin;
+    EditText editTextEmail;
+    EditText editTextPassword;
+    TextView textViewRegister;
     CheckBox checkBoxAutoLogin;
+    TextView textViewForgotPass;
     FirebaseAuth mAuth;
 
     @Override
@@ -42,7 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextTextPassword);
         textViewRegister = findViewById(R.id.textViewRegister);
         checkBoxAutoLogin = findViewById(R.id.checkBoxAutoLogin);
+        textViewForgotPass = findViewById(R.id.textViewForgotPass);
         textViewRegister.setPaintFlags(textViewRegister.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         if (sharedPreferences.getBoolean("autoLogin", false)) {
             editTextEmail.setText(sharedPreferences.getString("email", ""));
@@ -50,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         }
         boolean autoLoginEnabled = sharedPreferences.getBoolean("autoLogin", false);
         checkBoxAutoLogin.setChecked(autoLoginEnabled);
+        textViewForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    if (user.isEmailVerified()){
+                    if (user.isEmailVerified()) {
                         if (checkBoxAutoLogin.isChecked()) {
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();

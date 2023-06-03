@@ -12,14 +12,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_pets"
+        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.pets.PetsFragment"
+        android:label="@string/menu_pets"
+        tools:layout="@layout/fragment_pets" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_appointments"
+        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.appointments.AppointmentsFragment"
+        android:label="@string/menu_appointments"
+        tools:layout="@layout/fragment_appointments" />
+
+    <fragment
+        android:id="@+id/nav_history_medical"
+        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.medicalHistory.MedicalHistoryFragment"
+        android:label="@string/menu_history_medical"
+        tools:layout="@layout/fragment_history_medical" />
+
+    <fragment
+        android:id="@+id/nav_me"
+        android:name="com.insitutosanjuandelacruz.vetpet.view.ui.me.MeFragment"
+        android:label="@string/menu_me"
+        tools:layout="@layout/fragment_me" />
 </navigation>

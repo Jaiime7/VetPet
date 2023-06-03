@@ -2,7 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.VetPet" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/my_light_primary</item>
+        <item name="colorPrimaryDark">#4B7001</item>
+        <item name="colorPrimaryVariant">@color/my_light_primary_variant1</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant1</item>
     </style>
 
     <style name="Theme.VetPet" parent="Base.Theme.VetPet" />

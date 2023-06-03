@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="my_light_primary">#FF669900</color>
+    <color name="my_light_primary_variant1">#FF99CC00</color>
+    <color name="my_light_primary_variant2">#FFCCFF33</color>
+    <color name="colorSelectedItem">#FFFFFF66</color>
+    <color name="colorSecondary">#FF4081</color>
+    <color name="colorSecondaryVariant1">#FF79B0</color>
+    <color name="colorSecondaryVariant2">#FF63AB</color>
+    <color name="colorSecondaryVariant3">#FF1A66</color>
+
 </resources>

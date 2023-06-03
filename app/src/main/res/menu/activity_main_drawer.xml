@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    android:background="@drawable/nav_item_background">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_pets"
+            android:icon="@drawable/ic_menu_pets"
+            android:title="@string/my_pets" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_menu_appointments"
+            android:title="@string/menu_appointments" />
+        <item
+            android:id="@+id/nav_history_medical"
+            android:icon="@drawable/ic_menu_history_medical"
+            android:title="@string/menu_history_medical" />
+        <item
+            android:id="@+id/nav_me"
+            android:icon="@drawable/ic_menu_me"
+            android:title="@string/menu_me" />
     </group>
 </menu>
