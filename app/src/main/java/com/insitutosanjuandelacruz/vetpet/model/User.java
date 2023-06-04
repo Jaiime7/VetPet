@@ -5,24 +5,20 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class User {
     private String name;
-    private String surname;
     private String birthdate;
     private String gender;
     private String email;
-    private String password;
     private String userType;
     private String address;
     private String profileImage;
 
     // Constructor
-    public User(String name, String surname, String birthdate, String gender, String email, String password,
+    public User(String name, String birthdate, String gender, String email, String password,
                 String userType, String address, String profileImage) {
         this.name = name;
-        this.surname = surname;
         this.birthdate = birthdate;
         this.gender = gender;
         this.email = email;
-        this.password = password;
         this.userType = userType;
         this.address = address;
         this.profileImage = profileImage;
@@ -36,14 +32,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getBirthdate() {
@@ -68,14 +56,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUserType() {

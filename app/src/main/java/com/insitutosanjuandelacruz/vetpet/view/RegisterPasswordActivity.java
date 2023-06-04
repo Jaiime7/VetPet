@@ -91,7 +91,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
                 try {
                     user.sendEmailVerification();
-                    Toast.makeText(RegisterPasswordActivity.this, "A verification email has been sent to the address:" + email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterPasswordActivity.this, "A verification email has been sent.", Toast.LENGTH_SHORT).show();
                     String id = mAuth.getCurrentUser().getUid();
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("id", id);

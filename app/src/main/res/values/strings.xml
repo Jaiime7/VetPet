@@ -41,4 +41,8 @@
     <string name="menu_pets">My pets</string>
     <string name="menu_appointments">Appointments</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="pet_image">Pet Image</string>
+    <string name="add_pet">Add pet</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="specie">Specie</string>
 </resources>

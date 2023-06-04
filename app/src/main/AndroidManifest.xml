@@ -20,6 +20,9 @@
         android:theme="@style/Theme.VetPet"
         tools:targetApi="31">
         <activity
+            android:name=".view.ui.pets.adder.AddPetActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.RegisterBirthdateActivity"
             android:exported="false" />
         <activity

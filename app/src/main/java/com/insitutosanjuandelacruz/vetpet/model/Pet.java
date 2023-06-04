@@ -1,23 +1,24 @@
 package com.insitutosanjuandelacruz.vetpet.model;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Pet {
     private String name;
-    private String species;
+    private String specie;
     private String race;
-    private String birthdate;
+    private Timestamp birthdate;
     private String gender;
     private double weight;
     private String userId;
     private String petImage;
 
     // Constructor
-    public Pet(String name, String species, String race, String birthdate, String gender, double weight,
+    public Pet(String name, String species, String race, Timestamp birthdate, String gender, double weight,
                String userId, String petImage) {
         this.name = name;
-        this.species = species;
+        this.specie = species;
         this.race = race;
         this.birthdate = birthdate;
         this.gender = gender;
@@ -25,7 +26,9 @@ public class Pet {
         this.userId = userId;
         this.petImage = petImage;
     }
-
+    public Pet() {
+        // Constructor vacío
+    }
     // Getters and Setters
 
     public String getName() {
@@ -37,11 +40,11 @@ public class Pet {
     }
 
     public String getSpecies() {
-        return species;
+        return specie;
     }
 
     public void setSpecies(String species) {
-        this.species = species;
+        this.specie = species;
     }
 
     public String getRace() {
@@ -52,11 +55,11 @@ public class Pet {
         this.race = race;
     }
 
-    public String getBirthdate() {
+    public Timestamp getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Timestamp birthdate) {
         this.birthdate = birthdate;
     }
 
