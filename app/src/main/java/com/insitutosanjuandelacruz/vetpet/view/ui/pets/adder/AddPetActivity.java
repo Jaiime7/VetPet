@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.insitutosanjuandelacruz.vetpet.R;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AddPetActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -89,11 +91,10 @@ public class AddPetActivity extends AppCompatActivity implements DatePickerDialo
         datePickerDialog.show();
     }
 
-
     private void uploadPetData(String name, String species, Timestamp date) {
         String id = mAuth.getCurrentUser().getUid();
         Map<String, Object> petMap = new HashMap<>();
-        petMap.put("id", id);
+        petMap.put("id", UUID.randomUUID().toString());
         petMap.put("name", name);
         petMap.put("race", "");
         petMap.put("birthdate", date);

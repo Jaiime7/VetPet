@@ -5,7 +5,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Appointment {
     private String date;
-    private String hour;
     private String clientId;
     private String veterinaryId;
     private String petId;
@@ -14,10 +13,9 @@ public class Appointment {
     private String remarks;
 
     // Constructor
-    public Appointment(String date, String hour, String clientId, String veterinaryId, String petId,
+    public Appointment(String date, String clientId, String veterinaryId, String petId,
                        String type, int duration, String remarks) {
         this.date = date;
-        this.hour = hour;
         this.clientId = clientId;
         this.veterinaryId = veterinaryId;
         this.petId = petId;
@@ -34,14 +32,6 @@ public class Appointment {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
     }
 
     public String getClientId() {

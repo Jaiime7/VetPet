@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Pet {
+    private String id;
     private String name;
     private String specie;
     private String race;
@@ -15,8 +16,9 @@ public class Pet {
     private String petImage;
 
     // Constructor
-    public Pet(String name, String species, String race, Timestamp birthdate, String gender, double weight,
+    public Pet(String id, String name, String species, String race, Timestamp birthdate, String gender, double weight,
                String userId, String petImage) {
+        this.id = id;
         this.name = name;
         this.specie = species;
         this.race = race;
@@ -31,6 +33,14 @@ public class Pet {
     }
     // Getters and Setters
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -39,7 +49,7 @@ public class Pet {
         this.name = name;
     }
 
-    public String getSpecies() {
+    public String getSpecie() {
         return specie;
     }
 

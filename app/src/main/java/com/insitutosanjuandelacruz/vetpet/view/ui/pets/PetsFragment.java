@@ -26,6 +26,7 @@ import com.insitutosanjuandelacruz.vetpet.databinding.FragmentPetsBinding;
 import com.insitutosanjuandelacruz.vetpet.model.Pet;
 import com.insitutosanjuandelacruz.vetpet.view.ui.pets.adapter.PetsAdapter;
 import com.insitutosanjuandelacruz.vetpet.view.ui.pets.adder.AddPetActivity;
+import com.insitutosanjuandelacruz.vetpet.view.ui.pets.editor.EditPetActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,20 @@ public class PetsFragment extends Fragment {
             Intent intent = new Intent(getActivity(), AddPetActivity.class);
             startActivity(intent);
         });
+        petsAdapter.setOnItemClickListener(new PetsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Obtener la mascota seleccionada
+                Pet selectedPet = petList.get(position);
+
+                // Crear un Intent para abrir el Activity de edición
+                Intent intent = new Intent(getActivity(), EditPetActivity.class);
+                intent.putExtra("petId", selectedPet.getId()); // Pasar el ID de la mascota al Activity
+                startActivity(intent);
+            }
+        });
+
+
         return root;
     }
 

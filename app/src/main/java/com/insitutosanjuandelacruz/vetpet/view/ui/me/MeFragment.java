@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,14 +18,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,6 +40,8 @@ import com.insitutosanjuandelacruz.vetpet.view.MainActivity;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class MeFragment extends Fragment {
@@ -43,6 +51,8 @@ public class MeFragment extends Fragment {
 
     private ImageView imageViewProfile;
     private ImageView imageViewEdit;
+
+    TextView textViewAgeMe;
     StorageReference storageRef;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
@@ -58,12 +68,20 @@ public class MeFragment extends Fragment {
         View root = binding.getRoot();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference().child("user/profile/profileImages");
-
+        textViewAgeMe = binding.textViewAge;
         meViewModel.getImageUrl().observe(getViewLifecycleOwner(), imageUrl -> {
             // Carga la imagen utilizando Glide
             Glide.with(requireContext()).load(imageUrl).into(binding.imageViewPro);
         });
-
+        CollectionReference userRef = FirebaseFirestore.getInstance().collection("user");
+        userRef.whereEqualTo("id",FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Timestamp date = document.getTimestamp("birthdate");
+                    textViewAgeMe.setText(calculateAge(date));
+                }
+            }
+        });
         imageViewEdit = binding.imageViewEdit;
         imageViewProfile = binding.imageViewPro;
         imageViewEdit.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +93,24 @@ public class MeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private String calculateAge(Timestamp date) {
+        Date birthdateDate = date.toDate();
+        Calendar birthdateCalendar = Calendar.getInstance();
+        birthdateCalendar.setTime(birthdateDate);
+
+        Calendar currentCalendar = Calendar.getInstance();
+
+        int years = currentCalendar.get(Calendar.YEAR) - birthdateCalendar.get(Calendar.YEAR);
+        int months = currentCalendar.get(Calendar.MONTH) - birthdateCalendar.get(Calendar.MONTH);
+        int days = currentCalendar.get(Calendar.DAY_OF_MONTH) - birthdateCalendar.get(Calendar.DAY_OF_MONTH);
+
+        if (months < 0 || (months == 0 && days < 0)) {
+            years--;
+        }
+
+        return years+" years";
     }
 
     @Override
